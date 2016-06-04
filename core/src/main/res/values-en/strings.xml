@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Core</string>
+    <string name="gas_station_label">Gas Station</string>
+    <string name="spent_amount_label">Spent Amount</string>
+    <string name="mileage_label">mileage</string>
+    <string name="accept_label">Accept</string>
+    <string name="cancel_label">Cancel</string>
+    <string name="add_report_dialog_title">Add Tanking</string>
+</resources>
