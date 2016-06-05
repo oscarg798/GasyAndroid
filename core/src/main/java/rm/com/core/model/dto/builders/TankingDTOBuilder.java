@@ -24,13 +24,13 @@ public class TankingDTOBuilder {
     /**
      * Spent amount
      */
-    private String aSpentAmount;
+    private double aSpentAmount;
 
 
     /**
      * Mileage before fill the fuel
      */
-    private String aMileage;
+    private double aMileage;
 
 
     public TankingDTOBuilder withADate(Timestamp aDate) {
@@ -43,13 +43,13 @@ public class TankingDTOBuilder {
         return this;
     }
 
-    public TankingDTOBuilder withASpentAmount(String aSpentAmount) {
+    public TankingDTOBuilder withASpentAmount(double aSpentAmount) {
         this.aSpentAmount = aSpentAmount;
         return this;
 
     }
 
-    public TankingDTOBuilder withAMileage(String aMileage) {
+    public TankingDTOBuilder withAMileage(double aMileage) {
         this.aMileage = aMileage;
         return this;
     }

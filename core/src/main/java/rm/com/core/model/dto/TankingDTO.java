@@ -20,15 +20,15 @@ public class TankingDTO {
     /**
      * Spent amount
      */
-    private final String spentAmount;
+    private final double spentAmount;
 
 
     /**
      * Mileage before fill the fuel
      */
-    private final String mileage;
+    private final double mileage;
 
-    public TankingDTO(Timestamp date, String gasStationName, String spentAmount, String mileage) {
+    public TankingDTO(Timestamp date, String gasStationName, double spentAmount, double mileage) {
         this.date = date;
         GasStationName = gasStationName;
         this.spentAmount = spentAmount;
@@ -44,12 +44,12 @@ public class TankingDTO {
         return GasStationName;
     }
 
-    public String getSpentAmount() {
+    public double getSpentAmount() {
         return spentAmount;
     }
 
 
-    public String getMileage() {
+    public double getMileage() {
         return mileage;
 
     }

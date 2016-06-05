@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
 
@@ -16,6 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:tint="@color/white"
             android:layout_weight="0.5"
             android:src="@drawable/ic_calendar" />
 
@@ -25,6 +27,7 @@
             android:minDate="@string/dp_min_date"
             android:maxDate="@string/dp_max_date"
             android:datePickerMode="spinner"
+            android:tint="@color/white"
             android:calendarViewShown="false"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -44,6 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:tint="@color/white"
             android:layout_weight="0.5"
             android:src="@drawable/ic_gas_station" />
 
@@ -56,6 +60,7 @@
             <EditText
                 android:id="@+id/et_gas_station_name"
                 android:layout_width="match_parent"
+                android:textColor="@color/white"
                 android:layout_height="match_parent"
                 android:hint="@string/gas_station_label" />
 
@@ -74,6 +79,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="50dp"
+            android:tint="@color/white"
             android:layout_gravity="center"
             android:layout_weight="0.5"
             android:src="@drawable/ic_speedometer" />
@@ -88,6 +94,7 @@
                 android:id="@+id/et_mileage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/white"
                 android:inputType="number"
                 android:hint="@string/mileage_label" />
 
@@ -107,6 +114,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="50dp"
+            android:tint="@color/white"
             android:layout_gravity="center"
             android:layout_weight="0.5"
             android:src="@drawable/ic_money" />
@@ -122,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
+                android:textColor="@color/white"
                 android:hint="@string/spent_amount_label" />
 
         </android.support.design.widget.TextInputLayout>

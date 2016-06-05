@@ -1,9 +1,10 @@
-package rm.com.core.model.dto;
+package rm.com.gasy.applications;
 
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import rm.com.gasy.robo_modules.GasyModule;
 import roboguice.RoboGuice;
 
 /**
@@ -14,6 +15,13 @@ public class GasyApplication extends Application {
 
     static {
         RoboGuice.setUseAnnotationDatabases(false);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        RoboGuice.getOrCreateBaseApplicationInjector(this, RoboGuice.DEFAULT_STAGE,
+                RoboGuice.newDefaultRoboModule(this), new GasyModule());
     }
 
     @Override
