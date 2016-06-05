@@ -7,4 +7,7 @@
     <string name="accept_label">Accept</string>
     <string name="cancel_label">Cancel</string>
     <string name="add_report_dialog_title">Add Tanking</string>
+    <string name="should_add_gas_station_name_label">You must enter a Station name</string>
+    <string name="should_enter_mileage_label">You must enter a Mileage</string>
+    <string name="should_enter_spent_amount">You must enter a Spent Amount</string>
 </resources>

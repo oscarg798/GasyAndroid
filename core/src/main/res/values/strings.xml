@@ -8,4 +8,9 @@
 
 
     <string name="add_report_dialog_title">Agregar Tanqueada</string>
+    <string name="dp_min_date" translatable="false">01/01/2000</string>
+    <string name="dp_max_date" translatable="false">12/31/2016</string>
+    <string name="should_add_gas_station_name_label">Debe ingresar el nombre de la estación</string>
+    <string name="should_enter_mileage_label">Debe ingresar su Kilometraje</string>
+    <string name="should_enter_spent_amount">Debe ingresar su cantidad gastada</string>
 </resources>

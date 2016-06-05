@@ -20,8 +20,12 @@
             android:src="@drawable/ic_calendar" />
 
         <DatePicker
-            android:id="@+id/datePicker"
+            android:id="@+id/dp_tanking_date"
             android:layout_width="0dp"
+            android:minDate="@string/dp_min_date"
+            android:maxDate="@string/dp_max_date"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5" />
@@ -50,7 +54,7 @@
             android:layout_weight="1.5">
 
             <EditText
-                android:id="@+id/tv_gas_station_name"
+                android:id="@+id/et_gas_station_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/gas_station_label" />
@@ -81,7 +85,7 @@
             android:layout_weight="1.5">
 
             <EditText
-                android:id="@+id/tv_mileage"
+                android:id="@+id/et_mileage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
@@ -114,7 +118,7 @@
             android:layout_weight="1.5">
 
             <EditText
-                android:id="@+id/tv_spent_amount"
+                android:id="@+id/et_spent_amount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
