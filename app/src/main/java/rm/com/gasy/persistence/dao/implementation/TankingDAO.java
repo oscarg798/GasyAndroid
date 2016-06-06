@@ -11,16 +11,24 @@ import java.util.List;
 import rm.com.core.model.dto.TankingDTO;
 import rm.com.core.model.dto.builders.TankingDTOBuilder;
 import rm.com.gasy.persistence.contracts.DatabaseContract;
-import rm.com.gasy.persistence.dao.interfaces.IDatabaseOperation;
 import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
 
 /**
  * Created by oscargallon on 6/5/16.
+ * This class is the access point to a {@link TankingDTO} persistence data.
+ * This class provide CRUD methods to manipulate the {@link TankingDTO} data
+ * Also this class have some utils methods  for get a {@link ContentValues} list from
+ * a {@link TankingDTO} list or get a {@link TankingDTO} list from a {@link Cursor} object
  */
-
 public class TankingDAO implements ITankingDAO {
 
-
+    /**
+     * This method insert a TankingDTO data to database
+     *
+     * @param db                database instance
+     * @param contentValuesList data to insert
+     * @return return the number of row affected by the insert
+     */
     @Override
     public float insert(SQLiteDatabase db, List<ContentValues> contentValuesList) {
         float result = 0;
@@ -31,12 +39,30 @@ public class TankingDAO implements ITankingDAO {
         return result;
     }
 
+    /**
+     * This method update a tankingDTO data
+     *
+     * @param db                database instance
+     * @param contentValuesList data to update
+     * @param whereClause       where some column equals to...
+     * @param whereArg          where arguments
+     * @return the number of rows affected
+     */
     @Override
     public float update(SQLiteDatabase db, List<ContentValues> contentValuesList,
                         String whereClause, String[] whereArg) {
         return 0;
     }
 
+    /**
+     * This method return a TankingDTO data form database
+     *
+     * @param db          database instance
+     * @param whereClause where some column equals to...
+     * @param columnNames the from columns to get
+     * @param whereArg    the where arguments
+     * @return a list of {@link TankingDTO} or null if some error
+     */
     @Override
     public List<TankingDTO> get(SQLiteDatabase db, String whereClause,
                                 String[] columnNames, String[] whereArg) {
@@ -46,6 +72,12 @@ public class TankingDAO implements ITankingDAO {
         return getObjectFromCursor(cursor);
     }
 
+    /**
+     * This method return a List of {@link TankingDTO} from a {@link Cursor}
+     *
+     * @param cursor the pointer to database table
+     * @return {@link TankingDTO} list or null if error
+     */
     @Override
     public List<TankingDTO> getObjectFromCursor(Cursor cursor) {
         List<TankingDTO> tankingDTOList = null;
@@ -77,6 +109,12 @@ public class TankingDAO implements ITankingDAO {
         return tankingDTOList;
     }
 
+    /**
+     * This method return a List of {@link ContentValues} from a {@link TankingDTO} List
+     *
+     * @param objects the {@link TankingDTO} objects
+     * @return {@link ContentValues}  list
+     */
     @Override
     public List<ContentValues> getContentValuesFromObject(List<?> objects) {
         List<ContentValues> contentValuesList = new ArrayList<>();
