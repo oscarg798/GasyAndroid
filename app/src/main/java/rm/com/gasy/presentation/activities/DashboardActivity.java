@@ -125,4 +125,8 @@ public class DashboardActivity extends RoboActionBarActivity
                 .commitAllowingStateLoss();
 
     }
+
+    public Fragment getCurrentFragment() {
+        return currentFragment;
+    }
 }

@@ -2,6 +2,7 @@ package rm.com.gasy.controller;
 
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
@@ -30,6 +31,8 @@ import rm.com.core.model.dto.utils.IAsyncTaskExecutor;
 import rm.com.gasy.R;
 import rm.com.gasy.persistence.DatabaseHelper;
 import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
+import rm.com.gasy.presentation.activities.DashboardActivity;
+import rm.com.gasy.presentation.fragments.ReportFragment;
 import roboguice.RoboGuice;
 import roboguice.inject.RoboInjector;
 
@@ -58,6 +61,20 @@ public class ReportFragmentController extends AbstractController {
          */
         final RoboInjector injector = RoboGuice.getInjector(getActivity().getApplicationContext());
         injector.injectMembersWithoutViews(this);
+    }
+
+    public void loadTankingDataFromDataBase() {
+        if (db == null) {
+            db = new DatabaseHelper(getActivity()).getReadableDatabase();
+        }
+
+       Fragment fragment = ((DashboardActivity) getActivity()).getCurrentFragment();
+        if (fragment !=null && fragment instanceof ReportFragment){
+            ((ReportFragment) ((DashboardActivity) getActivity()).getCurrentFragment())
+                    .setParamatersAndLoadTankingData(tankingDAO, db, null, null);
+        }
+
+
     }
 
     private String fillMileage(String mileage) {

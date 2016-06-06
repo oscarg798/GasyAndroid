@@ -9,7 +9,7 @@ public class DatabaseContract {
 
     public static final String DATABASE_NAME = "gasy_db";
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     private static final String TEXT_TYPE = " TEXT";
 
@@ -29,9 +29,9 @@ public class DatabaseContract {
     public static abstract class TankingTable {
         public static final String TABLE_NAME = "TANKING";
 
-        public static final String COLUMN_ID = " ID";
+        public static final String COLUMN_ID = "ID";
 
-        public static final String COLUMN_DATE = " DATE";
+        public static final String COLUMN_DATE = "DATE";
 
         public static final String COLUMN_GAS_STATION_NAME = "GAS_STATION_NAME";
 
@@ -41,7 +41,7 @@ public class DatabaseContract {
 
 
         public static final String[] COLUMN_NAMES =
-                new String[]{COLUMN_DATE, COLUMN_GAS_STATION_NAME, COLUMN_SPENT_AMOUNT, COLUMN_MILEAGE};
+                new String[]{COLUMN_ID,COLUMN_DATE, COLUMN_GAS_STATION_NAME, COLUMN_SPENT_AMOUNT, COLUMN_MILEAGE};
 
         public static final String CREATE_TABLE = "CREATE TABLE  IF NOT EXISTS " +
                 TABLE_NAME + " (" +

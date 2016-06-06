@@ -32,6 +32,8 @@ public class TankingDTOBuilder {
      */
     private double aMileage;
 
+    private int aID;
+
 
     public TankingDTOBuilder withADate(Timestamp aDate) {
         this.aDate = aDate;
@@ -54,8 +56,13 @@ public class TankingDTOBuilder {
         return this;
     }
 
+    public TankingDTOBuilder withAnID(int id){
+        this.aID  = id;
+        return this;
+    }
+
     public TankingDTO createTakingDTO() {
-        return new TankingDTO(aDate, aGasStationName, aSpentAmount, aMileage);
+        return new TankingDTO(aID, aDate, aGasStationName, aSpentAmount, aMileage);
     }
 
 

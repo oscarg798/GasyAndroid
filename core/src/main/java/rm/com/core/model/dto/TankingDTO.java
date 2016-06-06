@@ -28,11 +28,13 @@ public class TankingDTO {
      */
     private final double mileage;
 
-    public TankingDTO(Timestamp date, String gasStationName, double spentAmount, double mileage) {
-        this.date = date;
-        GasStationName = gasStationName;
-        this.spentAmount = spentAmount;
+    private final int ID;
 
+    public TankingDTO(int ID, Timestamp date, String gasStationName, double spentAmount, double mileage) {
+        this.date = date;
+        this.ID = ID;
+        this.GasStationName = gasStationName;
+        this.spentAmount = spentAmount;
         this.mileage = mileage;
     }
 
@@ -52,5 +54,9 @@ public class TankingDTO {
     public double getMileage() {
         return mileage;
 
+    }
+
+    public int getID() {
+        return ID;
     }
 }

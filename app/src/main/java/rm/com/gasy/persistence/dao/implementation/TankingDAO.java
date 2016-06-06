@@ -43,7 +43,7 @@ public class TankingDAO implements ITankingDAO {
 
         Cursor cursor = db.query(DatabaseContract.TankingTable.TABLE_NAME, columnNames,
                 whereClause, whereArg, null, null, null, null);
-        return null;
+        return getObjectFromCursor(cursor);
     }
 
     @Override
@@ -57,6 +57,8 @@ public class TankingDAO implements ITankingDAO {
             tankingDTOList = new ArrayList<>();
             do {
                 tankingDTOList.add(new TankingDTOBuilder()
+                        .withAnID(cursor.getInt(cursor.getColumnIndex(DatabaseContract.TankingTable
+                                .COLUMN_ID)))
                         .withADate(new Timestamp(cursor.getLong(cursor.getColumnIndex(DatabaseContract
                                 .TankingTable.COLUMN_DATE))))
                         .withAGasStationName(cursor.getString(cursor.getColumnIndex(DatabaseContract

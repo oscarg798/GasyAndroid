@@ -1,23 +1,30 @@
 package rm.com.gasy.presentation.fragments;
 
 import android.content.Context;
-import android.net.Uri;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.Serializable;
+import java.util.List;
 
+import rm.com.core.model.dto.TankingDTO;
 import rm.com.gasy.R;
 import rm.com.gasy.controller.ReportFragmentController;
+import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
+import rm.com.gasy.persistence.utils.TankingLoader;
 
 /**
  * This is the fragment that show the report of gas consume,
  */
-public class ReportFragment extends Fragment {
+public class ReportFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<TankingDTO>> {
 
     private static final String REPORT_LIST_KEY = "report_list";
 
@@ -27,6 +34,8 @@ public class ReportFragment extends Fragment {
     private ReportFragmentController reportFragmentController;
 
     private FloatingActionButton fabAddReport;
+
+    private TankingLoader tankingLoader;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -72,10 +81,18 @@ public class ReportFragment extends Fragment {
                 reportFragmentController.showAddReportDialog();
             }
         });
+        reportFragmentController.loadTankingDataFromDataBase();
     }
 
     private void initComponents() {
         reportFragmentController = new ReportFragmentController(getActivity());
+
+    }
+
+    public void setParamatersAndLoadTankingData(ITankingDAO iTankingDAO, SQLiteDatabase db, String whereClause,
+                                                String[] wherearg) {
+        getTankingLoader().setParameters(iTankingDAO, db, whereClause, wherearg);
+        getActivity().getSupportLoaderManager().initLoader(1, null, this).forceLoad();
 
     }
 
@@ -92,4 +109,33 @@ public class ReportFragment extends Fragment {
     }
 
 
+    @Override
+    public Loader onCreateLoader(int id, Bundle args) {
+        return getTankingLoader();
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<TankingDTO>> loader, List<TankingDTO> data) {
+        if (data != null) {
+            for (TankingDTO tankingDTO : data) {
+                Log.i("DATA", tankingDTO.getGasStationName());
+                Log.i("DATA", tankingDTO.getDate().toString());
+
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader loader) {
+
+    }
+
+    public TankingLoader getTankingLoader() {
+        if (tankingLoader == null) {
+            tankingLoader = new TankingLoader(getActivity());
+        }
+        return tankingLoader;
+    }
 }
