@@ -13,4 +13,9 @@
     <string name="should_add_gas_station_name_label">Debe ingresar el nombre de la estación</string>
     <string name="should_enter_mileage_label">Debe ingresar su Kilometraje</string>
     <string name="should_enter_spent_amount">Debe ingresar su cantidad gastada</string>
+    <string name="tanking_date_label">Fecha</string>
+    <string name="date_format" translatable="false">dd/MM/yyyy</string>
+    <string name="tanking_list_key" translatable="false">tanking_list</string>
+    <string name="should_add_a_tanking_date">Debe ingresar una fecha</string>
+    <string name="add_tanking_activity_title">Agregar Tanqueada</string>
 </resources>

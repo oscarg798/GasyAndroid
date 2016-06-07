@@ -1,5 +1,6 @@
 package rm.com.gasy.presentation.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -9,15 +10,25 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.Serializable;
+import java.util.List;
+
+import rm.com.core.model.dto.TankingDTO;
+import rm.com.core.utils.GasyUtils;
 import rm.com.gasy.R;
+import rm.com.gasy.controller.DashBoardActivityController;
 import rm.com.gasy.presentation.fragments.ReportFragment;
 import roboguice.activity.RoboActionBarActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
+/**
+ * This is activity represents the app dashboard
+ */
 @ContentView(R.layout.activity_dashboard)
 public class DashboardActivity extends RoboActionBarActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,15 +45,35 @@ public class DashboardActivity extends RoboActionBarActivity
     @InjectView(R.id.toolbar)
     private Toolbar toolbar;
 
+    /**
+     * This property contains the fragment that is  shown to the user
+     */
     private Fragment currentFragment;
+
+    /**
+     * Activity controller
+     */
+    private DashBoardActivityController dashBoardActivityController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initComponents();
         initViewComponents();
+
 
     }
 
+    /**
+     * Init bussines logic components
+     */
+    private void initComponents() {
+        dashBoardActivityController = new DashBoardActivityController(this);
+    }
+
+    /**
+     * Init view components
+     */
     private void initViewComponents() {
         setSupportActionBar(toolbar);
 
@@ -57,6 +88,9 @@ public class DashboardActivity extends RoboActionBarActivity
 
     @Override
     public void onBackPressed() {
+        /**
+         * We check if the drawer is open or close, and if  it is  open  we close it
+         */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -87,7 +121,7 @@ public class DashboardActivity extends RoboActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -115,8 +149,12 @@ public class DashboardActivity extends RoboActionBarActivity
         return true;
     }
 
-
-    public void changeFragment(Fragment fragment) {
+    /**
+     * This method change the fragment displayed
+     *
+     * @param fragment
+     */
+    private void changeFragment(Fragment fragment) {
         this.currentFragment = fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -124,6 +162,36 @@ public class DashboardActivity extends RoboActionBarActivity
                 .addToBackStack(null)
                 .commitAllowingStateLoss();
 
+    }
+
+    /**
+     * We check the result of an activity that has been launched to get a result
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**
+         * We check if the activity launched, was {@link AddTankingActivity}
+         * and we validate if the user has entered a Tanking report to be display and save it
+         */
+        if (requestCode == GasyUtils.ADD_REPORT_REQUEST_CODE) {
+            if (resultCode == GasyUtils.ADD_RESULT_CODE) {
+                List<TankingDTO> tankingDTOList = (List<TankingDTO>)
+                        data.getSerializableExtra(getString(R.string.tanking_list_key));
+                if (tankingDTOList != null) {
+                    dashBoardActivityController.insertTankingOnDataBase(tankingDTOList);
+                    if (currentFragment instanceof ReportFragment) {
+                        ((ReportFragment) currentFragment).sendSerializableData((Serializable) tankingDTOList);
+                    }
+                }
+            } else {
+                Log.i("REPORTE", "SE HA CANCELADO");
+            }
+        }
     }
 
     public Fragment getCurrentFragment() {

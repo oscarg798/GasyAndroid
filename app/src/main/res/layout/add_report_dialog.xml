@@ -1,143 +1,178 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_tanking_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical">
-
+    tools:context="rm.com.gasy.presentation.activities.AddTankingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:tint="@color/white"
-            android:layout_weight="0.5"
-            android:src="@drawable/ic_calendar" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <DatePicker
-            android:id="@+id/dp_tanking_date"
-            android:layout_width="0dp"
-            android:minDate="@string/dp_min_date"
-            android:maxDate="@string/dp_max_date"
-            android:datePickerMode="spinner"
-            android:tint="@color/white"
-            android:calendarViewShown="false"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1.5" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:tint="@color/white"
-            android:layout_weight="0.5"
-            android:src="@drawable/ic_gas_station" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1.5">
+            android:orientation="vertical"
+            android:weightSum="4.5">
 
-            <EditText
-                android:id="@+id/et_gas_station_name"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:textColor="@color/white"
-                android:layout_height="match_parent"
-                android:hint="@string/gas_station_label" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-        </android.support.design.widget.TextInputLayout>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="@color/colorAccent" />
 
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.5">
+
+                    <EditText
+                        android:id="@+id/et_tanking_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/tanking_date_label"
+                        android:textColorHint="@color/colorAccent"
+                        android:inputType="date"
+                        android:maxLines="1" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/ic_gas_station"
+                    android:tint="@color/colorAccent" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.5">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/atv_gas_station_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:completionThreshold="2"
+                        android:hint="@string/gas_station_label" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/ic_speedometer"
+                    android:tint="@color/colorAccent" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.5">
+
+                    <EditText
+                        android:id="@+id/et_mileage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/mileage_label"
+                        android:textColorHint="@color/colorAccent"
+                        android:maxLines="1"
+                        android:inputType="number" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/ic_money"
+                    android:tint="@color/colorAccent" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:maxLines="1"
+                    android:layout_weight="1.5">
+
+
+                    <EditText
+                        android:id="@+id/et_spent_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/spent_amount_label"
+                        android:textColorHint="@color/colorAccent"
+                        android:inputType="number" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_accept"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:text="@string/accept_label" />
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:tint="@color/white"
-            android:layout_gravity="center"
-            android:layout_weight="0.5"
-            android:src="@drawable/ic_speedometer" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1.5">
-
-            <EditText
-                android:id="@+id/et_mileage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:inputType="number"
-                android:hint="@string/mileage_label" />
-
-        </android.support.design.widget.TextInputLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:tint="@color/white"
-            android:layout_gravity="center"
-            android:layout_weight="0.5"
-            android:src="@drawable/ic_money" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1.5">
-
-            <EditText
-                android:id="@+id/et_spent_amount"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:textColor="@color/white"
-                android:hint="@string/spent_amount_label" />
-
-        </android.support.design.widget.TextInputLayout>
-
-
-    </LinearLayout>
-
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
