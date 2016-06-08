@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import rm.com.core.model.dto.TankingDTO;
+import rm.com.core.model.dto.utils.Callbacks;
 import rm.com.gasy.R;
 import rm.com.gasy.presentation.holders.TankingItemHeaderViewHolder;
 import rm.com.gasy.presentation.holders.TankingItemViewHolder;
@@ -26,14 +27,16 @@ public class TankingItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int TYPE_ITEM = 1;
     private final SimpleDateFormat simpleDateFormat;
 
+
     private List<TankingDTO> tankingDTOList;
-    private Context context;
+    private Callbacks.IAdapterListeners iAdapterListeners;
 
 
-    public TankingItemAdapter(Context context, List<TankingDTO> tankingDTOList) {
+    public TankingItemAdapter(Context context, List<TankingDTO> tankingDTOList,
+                              Callbacks.IAdapterListeners iAdapterListeners) {
         this.tankingDTOList = tankingDTOList;
-        this.context = context;
         simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format));
+        this.iAdapterListeners = iAdapterListeners;
 
     }
 
@@ -53,7 +56,7 @@ public class TankingItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof TankingItemViewHolder) {
             TankingDTO tankingDTO = tankingDTOList.get(position - 1);
-            TankingItemViewHolder tankingItemViewHolder = (TankingItemViewHolder) holder;
+            final TankingItemViewHolder tankingItemViewHolder = (TankingItemViewHolder) holder;
             tankingItemViewHolder.getTvGasStationName().setText(tankingDTO.getGasStationName());
 
             tankingItemViewHolder.getTvTankingdate()
@@ -62,6 +65,24 @@ public class TankingItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             tankingItemViewHolder.getTvMileage().setText((String.format("%.0f",
                     tankingDTO.getMileage())));
+
+            tankingItemViewHolder.getIvEditTanking().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iAdapterListeners.onAdapterClickListener(v, tankingDTOList
+                                    .get(tankingItemViewHolder.getAdapterPosition())
+                            , Callbacks.EDIT_ACTION);
+                }
+            });
+
+            tankingItemViewHolder.getIvDeleteTanking().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iAdapterListeners.onAdapterClickListener(v, tankingDTOList
+                                    .get(tankingItemViewHolder.getAdapterPosition()),
+                            Callbacks.DELETE_ACTION);
+                }
+            });
         }
 
 

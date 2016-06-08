@@ -3,46 +3,86 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="5dp"
     android:orientation="horizontal"
     card_view:cardCornerRadius="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_gas_station_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="@string/gas_station_label" />
-
-        <TextView
-            android:id="@+id/tv_mileage"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/gas_station_label" />
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tv_tanking_date"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/tv_gas_station_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/gas_station_label" />
+
+
+
+            <TextView
+                android:id="@+id/tv_mileage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/gas_station_label" />
+
+            <TextView
+                android:id="@+id/tv_tanking_date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/gas_station_label" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="@string/gas_station_label" />
+            android:weightSum="2"
+            android:layout_margin="5dp"
+            android:layout_weight="1">
 
+            <ImageView
+                android:src="@drawable/close_button"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_height="30dp"
+                tools:ignore="NestedWeights"
+                android:id="@+id/iv_edit_tanking"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:src="@drawable/close_button"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_height="30dp"
+                tools:ignore="NestedWeights"
+                android:id="@+id/iv_delete_tanking"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
-
-
 </android.support.v7.widget.CardView>
