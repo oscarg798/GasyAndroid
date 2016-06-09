@@ -17,6 +17,8 @@ public interface IDatabaseOperation {
     float update(SQLiteDatabase db, List<ContentValues> contentValuesList, String whereClause,
                  String[] whereArg);
 
+    float delete(SQLiteDatabase db, String whereClause, String[] whereArg);
+
     List<?> get(SQLiteDatabase db,String whereClause, String[] columnNames,
                          String[] whereArg);
 

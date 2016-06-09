@@ -14,6 +14,7 @@ import android.widget.EditText;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,11 +76,38 @@ public class AddTankingActivity extends RoboActionBarActivity implements DatePic
      */
     private AddTankingActivityController addTankingActivityController;
 
+    private TankingDTO tankingDTOToEdit;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initComponents();
         initViewComponents();
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            TankingDTO tankingDTO = (TankingDTO) getIntent().getExtras()
+                    .getSerializable(getString(R.string.tanking_key));
+
+            fillViewsWithTankingDTO(tankingDTO);
+        }
+    }
+
+    private void fillViewsWithTankingDTO(TankingDTO tankingDTO) {
+        if (tankingDTO == null) {
+            return;
+        }
+        tankingDTOToEdit = tankingDTO;
+        etTankingDate.setText(simpleDateFormat.format
+                (new Date(tankingDTO.getDate().getTime())));
+
+        etMileage.setText((String.format("%.0f",
+                tankingDTO.getMileage())));
+
+        etSpentAmount.setText((String.format("%.0f",
+                tankingDTO.getSpentAmount())));
+
+        atGasStationName.setText(tankingDTO.getGasStationName());
+
     }
 
     /**
@@ -100,7 +128,7 @@ public class AddTankingActivity extends RoboActionBarActivity implements DatePic
         setSupportActionBar(toolbar);
 
         atGasStationName.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_dropdown_item_1line, gasStationNames));
+                R.layout.text_view_dropdown, gasStationNames));
 
         etTankingDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +168,7 @@ public class AddTankingActivity extends RoboActionBarActivity implements DatePic
                         && !etTankingDate.getText().toString().equals("")) {
                     addTankingActivityController.validateTankingData(mCalendar.getTime().getTime(),
                             atGasStationName.getText().toString(), etMileage.getText().toString(),
-                            etSpentAmount.getText().toString());
+                            etSpentAmount.getText().toString(), tankingDTOToEdit);
                 } else {
                     etTankingDate.setError(getString(R.string.should_add_a_tanking_date));
                     etTankingDate.requestFocus();
@@ -165,7 +193,12 @@ public class AddTankingActivity extends RoboActionBarActivity implements DatePic
         Intent resultData = new Intent();
         resultData.putExtra(getString(R.string.tanking_list_key), (Serializable) tankingDTOList);
         if (getParent() == null) {
-            setResult(GasyUtils.ADD_RESULT_CODE, resultData);
+            if(tankingDTOList.get(0).getID()==0){
+                setResult(GasyUtils.ADD_RESULT_CODE, resultData);
+            }else{
+                setResult(GasyUtils.EDIT_RESULT_CODE, resultData);
+            }
+
         } else {
             getParent().setResult(GasyUtils.ADD_RESULT_CODE, resultData);
         }

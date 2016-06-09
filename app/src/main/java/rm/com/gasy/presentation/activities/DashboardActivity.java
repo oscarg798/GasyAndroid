@@ -60,6 +60,7 @@ public class DashboardActivity extends RoboActionBarActivity
         super.onCreate(savedInstanceState);
         initComponents();
         initViewComponents();
+        onSelectDrawerOption(0);
 
 
     }
@@ -126,10 +127,9 @@ public class DashboardActivity extends RoboActionBarActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        int selectedOption  = 0;
         if (id == R.id.nav_camera) {
-            currentFragment = new ReportFragment().newInstance("SSS");
-
+            selectedOption = 0;
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -141,12 +141,21 @@ public class DashboardActivity extends RoboActionBarActivity
         } else if (id == R.id.nav_send) {
 
         }
+        onSelectDrawerOption(selectedOption);
+
+        return true;
+    }
+
+    private void onSelectDrawerOption(int option) {
+        switch (option) {
+            case 0:
+                currentFragment = new ReportFragment().newInstance("SSS");
+                break;
+        }
 
         changeFragment(currentFragment);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     /**
@@ -191,8 +200,19 @@ public class DashboardActivity extends RoboActionBarActivity
             } else {
                 Log.i("REPORTE", "SE HA CANCELADO");
             }
+        }else if(requestCode == GasyUtils.EDIT_REPORT_REQUEST_CODE){
+            if(resultCode == GasyUtils.EDIT_RESULT_CODE){
+                List<TankingDTO> tankingDTOList = (List<TankingDTO>)
+                        data.getSerializableExtra(getString(R.string.tanking_list_key));
+                dashBoardActivityController.modifyOrDeleteTankingDTO(tankingDTOList,GasyUtils.EDIT_REPORT_REQUEST_CODE);
+                if (currentFragment instanceof ReportFragment) {
+                    ((ReportFragment) currentFragment).sendSerializableData((Serializable) tankingDTOList);
+                }
+            }
         }
     }
+
+
 
     public Fragment getCurrentFragment() {
         return currentFragment;

@@ -51,7 +51,20 @@ public class TankingDAO implements ITankingDAO {
     @Override
     public float update(SQLiteDatabase db, List<ContentValues> contentValuesList,
                         String whereClause, String[] whereArg) {
-        return 0;
+
+
+        float result = 0;
+        for (ContentValues contentValues : contentValuesList) {
+            result += db.update(DatabaseContract.TankingTable.TABLE_NAME, contentValues, whereClause, whereArg);
+        }
+        return result;
+    }
+
+    @Override
+    public float delete(SQLiteDatabase db, String whereClause, String[] whereArg) {
+        float result = 0;
+        result += db.delete(DatabaseContract.TankingTable.TABLE_NAME, whereClause, whereArg);
+        return result;
     }
 
     /**
@@ -69,6 +82,7 @@ public class TankingDAO implements ITankingDAO {
 
         Cursor cursor = db.query(DatabaseContract.TankingTable.TABLE_NAME, columnNames,
                 whereClause, whereArg, null, null, null, null);
+
         return getObjectFromCursor(cursor);
     }
 
@@ -132,6 +146,10 @@ public class TankingDAO implements ITankingDAO {
                         tankingDTO.getMileage());
                 contentValues.put(DatabaseContract.TankingTable.COLUMN_SPENT_AMOUNT,
                         tankingDTO.getSpentAmount());
+                if (tankingDTO.getID() != 0) {
+                    contentValues.put(DatabaseContract.TankingTable.COLUMN_ID,
+                            tankingDTO.getID());
+                }
 
                 contentValuesList.add(contentValues);
 

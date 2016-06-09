@@ -70,7 +70,7 @@ public class TankingItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 @Override
                 public void onClick(View v) {
                     iAdapterListeners.onAdapterClickListener(v, tankingDTOList
-                                    .get(tankingItemViewHolder.getAdapterPosition())
+                                    .get(tankingItemViewHolder.getAdapterPosition()-1)
                             , Callbacks.EDIT_ACTION);
                 }
             });
@@ -79,7 +79,7 @@ public class TankingItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 @Override
                 public void onClick(View v) {
                     iAdapterListeners.onAdapterClickListener(v, tankingDTOList
-                                    .get(tankingItemViewHolder.getAdapterPosition()),
+                                    .get(tankingItemViewHolder.getAdapterPosition()-1),
                             Callbacks.DELETE_ACTION);
                 }
             });

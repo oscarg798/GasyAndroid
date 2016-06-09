@@ -3,6 +3,7 @@ package rm.com.core.model.dto.utils;
 import android.view.View;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by oscargallon on 6/6/16.
@@ -19,5 +20,9 @@ public class Callbacks {
 
     public interface IAdapterListeners{
         void onAdapterClickListener(View view, Object object, String action);
+    }
+
+    public interface IDatabaseOperationCallback {
+        void onOperationExecuted(float affectedRows, List<?> objects);
     }
 }

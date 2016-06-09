@@ -10,6 +10,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,8 @@ public class ReportFragment extends Fragment implements LoaderManager.LoaderCall
     private TankingLoader tankingLoader;
 
     private TankingItemAdapter tankingItemAdapter;
+
+    private int tankingToModifyPosition = -1;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -107,9 +110,40 @@ public class ReportFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void initComponents() {
         reportFragmentController = new ReportFragmentController(getActivity());
+        reportFragmentController.setFragment1(this);
         tankingItemAdapter = new TankingItemAdapter(getActivity().getApplicationContext(),
-                new ArrayList<TankingDTO>());
+                new ArrayList<TankingDTO>(), new Callbacks.IAdapterListeners() {
+            @Override
+            public void onAdapterClickListener(View view, Object object, String action) {
+                switch (action) {
+                    case Callbacks.EDIT_ACTION: {
+                        Log.i("ACTION", "EDIT");
+                        editTankingRequest(object);
+                        break;
+                    }
+                    case Callbacks.DELETE_ACTION: {
+                        Log.i("ACTION", "DELETE");
+                        List<TankingDTO> tankingDTOs = new ArrayList<>();
+                        tankingDTOs.add((TankingDTO) object);
+                        tankingToModifyPosition = tankingItemAdapter.getTankingDTOList().indexOf((TankingDTO) object);
+                        reportFragmentController.deleteTanking(tankingDTOs);
+                        break;
+                    }
+                }
+            }
+        });
 
+    }
+
+
+    private void editTankingRequest(Object object) {
+        TankingDTO tankingDTO = (TankingDTO) object;
+        tankingToModifyPosition = tankingItemAdapter.getTankingDTOList().indexOf(tankingDTO);
+        Intent intent = new Intent(getActivity(), AddTankingActivity.class);
+        Bundle extras = new Bundle();
+        extras.putSerializable(getActivity().getString(R.string.tanking_key), tankingDTO);
+        intent.putExtras(extras);
+        getActivity().startActivityForResult(intent, GasyUtils.EDIT_REPORT_REQUEST_CODE);
     }
 
     public void setParamatersAndLoadTankingData(ITankingDAO iTankingDAO, SQLiteDatabase db, String whereClause,
@@ -117,6 +151,13 @@ public class ReportFragment extends Fragment implements LoaderManager.LoaderCall
         getTankingLoader().setParameters(iTankingDAO, db, whereClause, wherearg);
         getActivity().getSupportLoaderManager().initLoader(1, null, this).forceLoad();
 
+    }
+
+    public void tankingDTODeleted() {
+        if (tankingToModifyPosition >= 0) {
+            tankingItemAdapter.getTankingDTOList().remove(tankingToModifyPosition);
+            tankingItemAdapter.notifyDataSetChanged();
+        }
     }
 
 
@@ -167,12 +208,24 @@ public class ReportFragment extends Fragment implements LoaderManager.LoaderCall
         return tankingLoader;
     }
 
+    public void findTankingDTOByDate(TankingDTO tankingDTO) {
+
+    }
+
     @Override
     public void sendSerializableData(Serializable serializable) {
         List<TankingDTO> tankingDTOList = (List<TankingDTO>) serializable;
         if (tankingDTOList != null && tankingDTOList.size() > 0) {
-            tankingItemAdapter.getTankingDTOList().add(tankingDTOList.get(0));
+            if (tankingToModifyPosition >= 0) {
+                tankingItemAdapter.getTankingDTOList().remove(tankingToModifyPosition);
+                tankingItemAdapter.getTankingDTOList().add(tankingToModifyPosition, tankingDTOList.get(0));
+                tankingToModifyPosition = -1;
+            } else {
+                tankingItemAdapter.getTankingDTOList().add(tankingDTOList.get(0));
+
+            }
             tankingItemAdapter.notifyDataSetChanged();
+
         }
     }
 }

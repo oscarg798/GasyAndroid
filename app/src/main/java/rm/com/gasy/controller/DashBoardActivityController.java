@@ -6,9 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import com.google.inject.Inject;
 import com.rm.androidesentials.controllers.abstracts.AbstractController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rm.com.core.model.dto.TankingDTO;
+import rm.com.core.model.dto.utils.Callbacks;
+import rm.com.core.utils.GasyUtils;
 import rm.com.gasy.model.Tanking;
 import rm.com.gasy.persistence.DatabaseHelper;
 import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
@@ -19,13 +22,15 @@ import roboguice.inject.RoboInjector;
  * Created by oscargallon on 6/6/16.
  * {@link rm.com.gasy.presentation.activities.DashboardActivity} controller
  */
-public class DashBoardActivityController extends AbstractController {
+public class DashBoardActivityController extends AbstractController implements Callbacks.IDatabaseOperationCallback {
 
 
     @Inject
     private ITankingDAO tankingDAO;
 
     private SQLiteDatabase db;
+
+    private int executedAction;
 
 
     /**
@@ -52,6 +57,11 @@ public class DashBoardActivityController extends AbstractController {
 
     }
 
+    public void modifyOrDeleteTankingDTO(List<TankingDTO> tankingDTOs, int action) {
+        executedAction = action;
+        Tanking.getInstance().editTankingDTO(tankingDTOs, getDb(), this, tankingDAO);
+    }
+
     /**
      * This method close the database instance while it remains opened
      */
@@ -73,5 +83,15 @@ public class DashBoardActivityController extends AbstractController {
             db = new DatabaseHelper(getActivity()).getReadableDatabase();
         }
         return db;
+    }
+
+
+    @Override
+    public void onOperationExecuted(float affectedRows, List<?> objects) {
+        switch (executedAction) {
+            case GasyUtils.EDIT_REPORT_REQUEST_CODE: {
+                break;
+            }
+        }
     }
 }

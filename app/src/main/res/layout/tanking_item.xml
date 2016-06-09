@@ -64,8 +64,9 @@
             android:layout_weight="1">
 
             <ImageView
-                android:src="@drawable/close_button"
+                android:src="@drawable/ic_edit"
                 android:layout_width="0dp"
+                android:tint="@color/colorPrimaryDark"
                 android:layout_gravity="center"
                 android:layout_height="30dp"
                 tools:ignore="NestedWeights"
@@ -73,11 +74,12 @@
                 android:layout_weight="1" />
 
             <ImageView
-                android:src="@drawable/close_button"
+                android:src="@drawable/ic_clear"
                 android:layout_width="0dp"
                 android:layout_gravity="center"
                 android:layout_height="30dp"
                 tools:ignore="NestedWeights"
+                android:tint="@color/colorPrimaryDark"
                 android:id="@+id/iv_delete_tanking"
                 android:layout_weight="1" />
 

@@ -58,7 +58,7 @@ public class AddTankingActivityController extends AbstractController {
      * @param spentAmount    spent amount enter by user
      */
     public void validateTankingData(final long tankingDate, final String gasStationName, String mileage,
-                                    final String spentAmount) {
+                                    final String spentAmount, TankingDTO tankingDTO) {
 
         /**
          * Validate if the gasStationName has been entered
@@ -101,11 +101,17 @@ public class AddTankingActivityController extends AbstractController {
          * list to be returned to the parent Activity
          */
         List<TankingDTO> tankingDTOList = new ArrayList<>();
-        tankingDTOList.add(new TankingDTOBuilder()
+        TankingDTOBuilder tankingDTOBuilder = new TankingDTOBuilder()
                 .withADate(new Timestamp(tankingDate))
                 .withAGasStationName(gasStationName)
                 .withASpentAmount(Double.parseDouble(spentAmount))
-                .withAMileage(Double.parseDouble(mileage))
+                .withAMileage(Double.parseDouble(mileage));
+
+
+        if (tankingDTO != null) {
+            tankingDTOBuilder.withAnID(tankingDTO.getID());
+        }
+        tankingDTOList.add(tankingDTOBuilder
                 .createTakingDTO());
 
         ((AddTankingActivity) getActivity()).finishAndReturnResult(tankingDTOList);
