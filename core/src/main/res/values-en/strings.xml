@@ -13,4 +13,7 @@
     <string name="should_add_a_tanking_date">You must enter a Date</string>
     <string name="tanking_date_label">Date</string>
     <string name="add_tanking_activity_title">Add Tanking</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="login_label">Log In</string>
 </resources>

@@ -11,14 +11,15 @@ import java.util.List;
 
 public class Callbacks {
 
-    public static final String EDIT_ACTION ="EDIT";
+    public static final String EDIT_ACTION = "EDIT";
     public static final String DELETE_ACTION = "DELETE";
+    public static final String SHOW_ACTION = "SHOW";
 
-    public interface SendSerializableToFragment{
+    public interface SendSerializableToFragment {
         void sendSerializableData(Serializable serializable);
     }
 
-    public interface IAdapterListeners{
+    public interface IAdapterListeners {
         void onAdapterClickListener(View view, Object object, String action);
     }
 

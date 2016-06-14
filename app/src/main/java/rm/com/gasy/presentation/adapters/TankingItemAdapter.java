@@ -80,7 +80,7 @@ public class TankingItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 public void onClick(View v) {
                     iAdapterListeners.onAdapterClickListener(v, tankingDTOList
                                     .get(tankingItemViewHolder.getAdapterPosition()-1),
-                            Callbacks.DELETE_ACTION);
+                            Callbacks.SHOW_ACTION);
                 }
             });
         }

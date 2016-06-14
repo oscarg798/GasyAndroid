@@ -144,8 +144,8 @@ public class AddTankingActivity extends RoboActionBarActivity implements DatePic
                 /**
                  * We take the current device date and decrease it one year
                  */
-                currentTimeCalendar.add(Calendar.YEAR, -1);
-                datePickerDialog.getDatePicker().setMinDate(currentTimeCalendar.getTime().getTime());
+                //currentTimeCalendar.add(Calendar.YEAR, -1);
+                //datePickerDialog.getDatePicker().setMinDate(currentTimeCalendar.getTime().getTime());
                 datePickerDialog.show();
 
                 /**

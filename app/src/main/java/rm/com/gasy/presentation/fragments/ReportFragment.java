@@ -28,6 +28,7 @@ import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
 import rm.com.gasy.persistence.utils.TankingLoader;
 import rm.com.gasy.presentation.activities.AddTankingActivity;
 import rm.com.gasy.presentation.adapters.TankingItemAdapter;
+import rm.com.gasy.presentation.dialogs.TankingDetailDialog;
 
 /**
  * This is the fragment that show the report of gas consume,
@@ -129,6 +130,12 @@ public class ReportFragment extends Fragment implements LoaderManager.LoaderCall
                         reportFragmentController.deleteTanking(tankingDTOs);
                         break;
                     }
+
+                    case Callbacks.SHOW_ACTION: {
+                        Log.i("ACTION", "VIEW");
+                        showTankingDetailDialog((TankingDTO) object);
+                        break;
+                    }
                 }
             }
         });
@@ -196,9 +203,14 @@ public class ReportFragment extends Fragment implements LoaderManager.LoaderCall
 
     }
 
+    private void showTankingDetailDialog(TankingDTO tankingDTO) {
+        TankingDetailDialog tankingDetailDialog = TankingDetailDialog.getInstace("titulo", "aceptar", tankingDTO);
+        tankingDetailDialog.show(getActivity().getSupportFragmentManager(), "dialog");
+    }
+
     @Override
     public void onLoaderReset(Loader loader) {
-
+        tankingItemAdapter.getTankingDTOList().clear();
     }
 
     public TankingLoader getTankingLoader() {

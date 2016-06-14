@@ -45,6 +45,7 @@ public class DashBoardActivityController extends AbstractController implements C
          */
         final RoboInjector injector = RoboGuice.getInjector(getActivity().getApplicationContext());
         injector.injectMembersWithoutViews(this);
+        tankingDAO.setCurrentContext(getActivity());
     }
 
     /**
