@@ -12,11 +12,13 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/ic_add"
         android:layout_width="40dp"
+        android:scaleType="center"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:fabSize="mini"
+        app:fabSize="normal"
+        android:layout_margin="@dimen/fab_margin"
         android:layout_gravity="bottom|end"
         android:tint="@color/white"
         android:id="@+id/fab_add_report" />

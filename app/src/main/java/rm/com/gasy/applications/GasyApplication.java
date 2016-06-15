@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.firebase.client.Firebase;
+
 import rm.com.gasy.robo_modules.GasyModule;
 import roboguice.RoboGuice;
 
@@ -20,6 +22,7 @@ public class GasyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Firebase.setAndroidContext(getApplicationContext());
         RoboGuice.getOrCreateBaseApplicationInjector(this, RoboGuice.DEFAULT_STAGE,
                 RoboGuice.newDefaultRoboModule(this), new GasyModule());
     }

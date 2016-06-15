@@ -16,6 +16,12 @@
     <string name="tanking_date_label">Fecha</string>
     <string name="date_format" translatable="false">dd/MM/yyyy</string>
     <string name="tanking_list_key" translatable="false">tanking_list</string>
+    <string name="tanking_key" translatable="false">tanking</string>
+    <string name="should_add_a_tanking_date">Debe ingresar una fecha</string>
+    <string name="add_tanking_activity_title">Agregar Tanqueada</string>
+    <string name="email_label">Correo Electronico</string>
+    <string name="password_label">Contraseña</string>
+    <string name="login_label">Iniciar Sesion</string>
     <string name="should_add_a_tanking_date">Debe ingresar una fecha</string>
     <string name="add_tanking_activity_title">Agregar Tanqueada</string>
 </resources>

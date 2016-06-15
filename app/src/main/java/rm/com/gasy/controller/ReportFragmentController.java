@@ -8,8 +8,13 @@ import android.support.v4.app.Fragment;
 import com.google.inject.Inject;
 import com.rm.androidesentials.controllers.abstracts.AbstractController;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import rm.com.core.model.dto.TankingDTO;
+import rm.com.core.model.dto.utils.Callbacks;
+import rm.com.gasy.model.Tanking;
 import rm.com.gasy.persistence.DatabaseHelper;
 import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
 import rm.com.gasy.presentation.activities.DashboardActivity;
@@ -21,14 +26,17 @@ import roboguice.inject.RoboInjector;
  * Created by oscargallon on 6/4/16.
  */
 
-public class ReportFragmentController extends AbstractController {
+public class ReportFragmentController extends AbstractController implements Callbacks.IDatabaseOperationCallback {
 
     private SQLiteDatabase db;
 
     private Calendar calendar;
 
+    private Fragment fragment;
+
     @Inject
     private ITankingDAO tankingDAO;
+
 
     /**
      * Contructor de la clase
@@ -42,6 +50,7 @@ public class ReportFragmentController extends AbstractController {
          */
         final RoboInjector injector = RoboGuice.getInjector(getActivity().getApplicationContext());
         injector.injectMembersWithoutViews(this);
+        tankingDAO.setCurrentContext(getActivity());
     }
 
     public void loadTankingDataFromDataBase() {
@@ -52,7 +61,9 @@ public class ReportFragmentController extends AbstractController {
         }
     }
 
-
+    public void deleteTanking(List<TankingDTO> tankingDTOList) {
+        Tanking.getInstance().deleteTankigDTO(tankingDTOList, db, this, tankingDAO);
+    }
 
 
     public void tryToCloseDatabase() {
@@ -66,5 +77,21 @@ public class ReportFragmentController extends AbstractController {
             db = new DatabaseHelper(getActivity()).getReadableDatabase();
         }
         return db;
+    }
+
+    @Override
+    public void onOperationExecuted(float affectedRows, List<?> objects) {
+        if (affectedRows > 0) {
+            ((ReportFragment) getFragment1()).tankingDTODeleted();
+        }
+    }
+
+
+    public Fragment getFragment1() {
+        return fragment;
+    }
+
+    public void setFragment1(Fragment fragment) {
+        this.fragment = fragment;
     }
 }

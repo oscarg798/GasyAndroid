@@ -1,6 +1,7 @@
 package rm.com.gasy.persistence.dao.interfaces;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -17,6 +18,8 @@ public interface IDatabaseOperation {
     float update(SQLiteDatabase db, List<ContentValues> contentValuesList, String whereClause,
                  String[] whereArg);
 
+    float delete(SQLiteDatabase db, String whereClause, String[] whereArg);
+
     List<?> get(SQLiteDatabase db,String whereClause, String[] columnNames,
                          String[] whereArg);
 
@@ -24,4 +27,6 @@ public interface IDatabaseOperation {
     List<?> getObjectFromCursor(Cursor cursor);
 
     List<ContentValues> getContentValuesFromObject(List<?> objects);
+
+    void setCurrentContext(Context context);
 }

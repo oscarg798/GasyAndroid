@@ -12,6 +12,97 @@ import java.util.List;
 import java.util.Locale;
 
 import rm.com.core.model.dto.TankingDTO;
+import rm.com.core.model.dto.utils.Callbacks;
+import rm.com.gasy.R;
+import rm.com.gasy.presentation.holders.TankingItemHeaderViewHolder;
+import rm.com.gasy.presentation.holders.TankingItemViewHolder;
+
+/**
+ * Created by oscargallon on 6/6/16.
+ */
+
+public class TankingItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
+    private final SimpleDateFormat simpleDateFormat;
+
+
+    private List<TankingDTO> tankingDTOList;
+    private Callbacks.IAdapterListeners iAdapterListeners;
+
+
+    public TankingItemAdapter(Context context, List<TankingDTO> tankingDTOList,
+                              Callbacks.IAdapterListeners iAdapterListeners) {
+        this.tankingDTOList = tankingDTOList;
+        simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format));
+        this.iAdapterListeners = iAdapterListeners;
+
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = viewType == TYPE_ITEM ? LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.tanking_item, parent, false) :
+                LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.tanking_item_header, parent, false);
+
+        RecyclerView.ViewHolder holder = viewType == TYPE_ITEM ?
+                new TankingItemViewHolder(itemView) : new TankingItemHeaderViewHolder(itemView);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof TankingItemViewHolder) {
+            TankingDTO tankingDTO = tankingDTOList.get(position - 1);
+            final TankingItemViewHolder tankingItemViewHolder = (TankingItemViewHolder) holder;
+            tankingItemViewHolder.getTvGasStationName().setText(tankingDTO.getGasStationName());
+
+            tankingItemViewHolder.getTvTankingdate()
+                    .setText(simpleDateFormat.format
+                            (new Date(tankingDTO.getDate().getTime())));
+
+            tankingItemViewHolder.getTvMileage().setText((String.format("%.0f",
+                    tankingDTO.getMileage())));
+
+            tankingItemViewHolder.getIvEditTanking().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iAdapterListeners.onAdapterClickListener(v, tankingDTOList
+                                    .get(tankingItemViewHolder.getAdapterPosition()-1)
+                            , Callbacks.EDIT_ACTION);
+                }
+            });
+
+            tankingItemViewHolder.getIvDeleteTanking().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iAdapterListeners.onAdapterClickListener(v, tankingDTOList
+                                    .get(tankingItemViewHolder.getAdapterPosition()-1),
+                            Callbacks.SHOW_ACTION);
+                }
+            });
+        }
+
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        int type = position == 0 ? TYPE_HEADER : TYPE_ITEM;
+        return type;
+    }
+
+    @Override
+    public int getItemCount() {
+        return tankingDTOList.size() + 1;
+    }
+
+    public List<TankingDTO> getTankingDTOList() {
+        return tankingDTOList;
+    }
+}
 import rm.com.gasy.R;
 import rm.com.gasy.presentation.holders.TankingItemHeaderViewHolder;
 import rm.com.gasy.presentation.holders.TankingItemViewHolder;

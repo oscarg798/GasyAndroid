@@ -52,8 +52,10 @@ public class DatabaseContract {
                 COLUMN_MILEAGE + REAL_TYPE +
                 ")";
 
+        public static final String WHERE_PRIMARY_KEY = COLUMN_ID + "=?";
+
         public static final String COUNT_WHERE =
-                "select count(*) from " + TABLE_NAME + " where " + COLUMN_DATE + " = ?";
+                "select count(*) from " + TABLE_NAME + " where " + COLUMN_ID + " = ?";
 
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 

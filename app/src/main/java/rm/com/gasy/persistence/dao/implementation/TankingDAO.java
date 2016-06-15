@@ -1,8 +1,11 @@
 package rm.com.gasy.persistence.dao.implementation;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -10,6 +13,7 @@ import java.util.List;
 
 import rm.com.core.model.dto.TankingDTO;
 import rm.com.core.model.dto.builders.TankingDTOBuilder;
+import rm.com.gasy.persistence.contentsproviders.TankingProvider;
 import rm.com.gasy.persistence.contracts.DatabaseContract;
 import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
 
@@ -22,6 +26,8 @@ import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
  */
 public class TankingDAO implements ITankingDAO {
 
+    private Context currentContext;
+
     /**
      * This method insert a TankingDTO data to database
      *
@@ -32,8 +38,10 @@ public class TankingDAO implements ITankingDAO {
     @Override
     public float insert(SQLiteDatabase db, List<ContentValues> contentValuesList) {
         float result = 0;
+        ContentResolver contentResolver = getCurrentContext().getContentResolver();
+        Uri uri = TankingProvider.CONTENT_URI;
         for (ContentValues contentValues : contentValuesList) {
-            result += db.insert(DatabaseContract.TankingTable.TABLE_NAME, null, contentValues);
+            result += contentResolver.insert(uri, contentValues) != null ? 1 : 0;
         }
 
         return result;
@@ -51,7 +59,24 @@ public class TankingDAO implements ITankingDAO {
     @Override
     public float update(SQLiteDatabase db, List<ContentValues> contentValuesList,
                         String whereClause, String[] whereArg) {
-        return 0;
+
+
+        float result = 0;
+        ContentResolver contentResolver = getCurrentContext().getContentResolver();
+        Uri uri = TankingProvider.CONTENT_URI;
+        for (ContentValues contentValues : contentValuesList) {
+            result += contentResolver.update(uri, contentValues, whereClause, whereArg);
+        }
+        return result;
+    }
+
+    @Override
+    public float delete(SQLiteDatabase db, String whereClause, String[] whereArg) {
+        float result = 0;
+        ContentResolver contentResolver = getCurrentContext().getContentResolver();
+        Uri uri = TankingProvider.CONTENT_URI;
+        result += contentResolver.delete(uri, whereClause, whereArg);
+        return result;
     }
 
     /**
@@ -67,8 +92,10 @@ public class TankingDAO implements ITankingDAO {
     public List<TankingDTO> get(SQLiteDatabase db, String whereClause,
                                 String[] columnNames, String[] whereArg) {
 
-        Cursor cursor = db.query(DatabaseContract.TankingTable.TABLE_NAME, columnNames,
-                whereClause, whereArg, null, null, null, null);
+        ContentResolver contentResolver = getCurrentContext().getContentResolver();
+        Uri uri = TankingProvider.CONTENT_URI;
+        Cursor cursor = contentResolver.query(uri, columnNames, whereClause, whereArg, null);
+
         return getObjectFromCursor(cursor);
     }
 
@@ -132,6 +159,10 @@ public class TankingDAO implements ITankingDAO {
                         tankingDTO.getMileage());
                 contentValues.put(DatabaseContract.TankingTable.COLUMN_SPENT_AMOUNT,
                         tankingDTO.getSpentAmount());
+                if (tankingDTO.getID() != 0) {
+                    contentValues.put(DatabaseContract.TankingTable.COLUMN_ID,
+                            tankingDTO.getID());
+                }
 
                 contentValuesList.add(contentValues);
 
@@ -146,4 +177,12 @@ public class TankingDAO implements ITankingDAO {
     }
 
 
+    public Context getCurrentContext() {
+        return currentContext;
+    }
+
+    @Override
+    public void setCurrentContext(Context currentContext) {
+        this.currentContext = currentContext;
+    }
 }
