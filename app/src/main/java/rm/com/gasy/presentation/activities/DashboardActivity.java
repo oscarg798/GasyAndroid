@@ -127,7 +127,7 @@ public class DashboardActivity extends RoboActionBarActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        int selectedOption  = 0;
+        int selectedOption = 0;
         if (id == R.id.nav_camera) {
             selectedOption = 0;
         } else if (id == R.id.nav_gallery) {
@@ -200,11 +200,11 @@ public class DashboardActivity extends RoboActionBarActivity
             } else {
                 Log.i("REPORTE", "SE HA CANCELADO");
             }
-        }else if(requestCode == GasyUtils.EDIT_REPORT_REQUEST_CODE){
-            if(resultCode == GasyUtils.EDIT_RESULT_CODE){
+        } else if (requestCode == GasyUtils.EDIT_REPORT_REQUEST_CODE) {
+            if (resultCode == GasyUtils.EDIT_RESULT_CODE) {
                 List<TankingDTO> tankingDTOList = (List<TankingDTO>)
                         data.getSerializableExtra(getString(R.string.tanking_list_key));
-                dashBoardActivityController.modifyOrDeleteTankingDTO(tankingDTOList,GasyUtils.EDIT_REPORT_REQUEST_CODE);
+                dashBoardActivityController.modifyOrDeleteTankingDTO(tankingDTOList, GasyUtils.EDIT_REPORT_REQUEST_CODE);
                 if (currentFragment instanceof ReportFragment) {
                     ((ReportFragment) currentFragment).sendSerializableData((Serializable) tankingDTOList);
                 }
@@ -213,8 +213,8 @@ public class DashboardActivity extends RoboActionBarActivity
     }
 
 
+    private void sendDataToFragment(List<TankingDTO> tankingDTOList) {
 
-        }
     }
 
     public Fragment getCurrentFragment() {

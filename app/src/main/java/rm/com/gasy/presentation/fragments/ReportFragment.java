@@ -10,6 +10,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,8 +142,6 @@ public class ReportFragment extends Fragment implements LoaderManager.LoaderCall
 
     }
 
-        tankingItemAdapter = new TankingItemAdapter(getActivity().getApplicationContext(),
-                new ArrayList<TankingDTO>());
 
     private void editTankingRequest(Object object) {
         TankingDTO tankingDTO = (TankingDTO) object;
@@ -239,14 +238,6 @@ public class ReportFragment extends Fragment implements LoaderManager.LoaderCall
             }
             tankingItemAdapter.notifyDataSetChanged();
 
-        }
-    }
-    @Override
-    public void sendSerializableData(Serializable serializable) {
-        List<TankingDTO> tankingDTOList = (List<TankingDTO>) serializable;
-        if (tankingDTOList != null && tankingDTOList.size() > 0) {
-            tankingItemAdapter.getTankingDTOList().add(tankingDTOList.get(0));
-            tankingItemAdapter.notifyDataSetChanged();
         }
     }
 }
