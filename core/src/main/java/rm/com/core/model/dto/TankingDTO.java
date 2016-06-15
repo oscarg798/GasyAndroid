@@ -1,11 +1,12 @@
 package rm.com.core.model.dto;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by oscargallon on 6/4/16.
  */
-public class TankingDTO {
+public class TankingDTO implements Serializable {
 
     /**
      * TankingDTO Date

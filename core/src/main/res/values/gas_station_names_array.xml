@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="gas_station_names_array">
+        <item>Mobil Eso</item>
+        <item>Terpel</item>
+        <item>Zeus</item>
+        <item>Texaco</item>
+    </string-array>
+
+
+</resources>

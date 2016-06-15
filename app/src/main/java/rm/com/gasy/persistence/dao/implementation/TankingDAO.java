@@ -15,7 +15,7 @@ import rm.com.gasy.persistence.dao.interfaces.ITankingDAO;
 
 /**
  * Created by oscargallon on 6/5/16.
- * This class is the access point to a {@link TankingDTO} persistence data.
+ * This class is the Data Access Object to a {@link TankingDTO} persistence data.
  * This class provide CRUD methods to manipulate the {@link TankingDTO} data
  * Also this class have some utils methods  for get a {@link ContentValues} list from
  * a {@link TankingDTO} list or get a {@link TankingDTO} list from a {@link Cursor} object
