@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import rm.com.gasy.R;
+import rm.com.gasy.controller.LoginFragmentController;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +24,10 @@ public class LoginFragment extends Fragment {
 
     private Button btnLogin;
 
+    private Button btnSignup;
+
+    private LoginFragmentController loginFragmentController;
+
 
     public LoginFragment() {
         // Required empty public constructor
@@ -35,6 +40,7 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         initViewComponents(view);
+        loginFragmentController = new LoginFragmentController(getActivity());
         return view;
     }
 
@@ -42,6 +48,15 @@ public class LoginFragment extends Fragment {
         etEmail = (EditText) view.findViewById(R.id.et_email);
         etPassword = (EditText) view.findViewById(R.id.et_password);
         btnLogin = (Button) view.findViewById(R.id.btn_login);
+        btnSignup = (Button) view.findViewById(R.id.btn_sign_up);
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginFragmentController.createUser(etEmail.getText().toString(),
+                        etPassword.getText().toString());
+            }
+        });
     }
+
 
 }

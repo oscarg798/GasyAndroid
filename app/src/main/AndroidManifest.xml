@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="rm.com.gasy">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".applications.GasyApplication"
         android:allowBackup="true"

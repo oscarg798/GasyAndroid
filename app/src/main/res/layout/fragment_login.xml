@@ -1,5 +1,4 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
@@ -7,64 +6,76 @@
     tools:context="rm.com.gasy.presentation.fragments.LoginFragment">
 
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_label"
-        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        android:layout_marginBottom="31dp"
-        tools:layout_constraintBottom_creator="1" />
-
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        android:layout_marginBottom="193dp"
-        tools:layout_constraintBottom_creator="1">
-
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/email_label"
-            android:inputType="textEmailAddress"
-            app:layout_constraintTop_toTopOf="@+id/til_email"
-            android:layout_marginTop="46dp"
-            tools:layout_constraintTop_creator="1" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="413dp"
-        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp">
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_email"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/email_label"
-            android:inputType="textEmailAddress"
-            app:layout_constraintTop_toTopOf="@+id/til_email"
-            android:layout_marginTop="46dp"
-            tools:layout_constraintTop_creator="1" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_above="@+id/btn_login"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="188dp"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/email_label"
+                android:inputType="textEmailAddress"
+                android:maxLines="1" />
+
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_login"
+            android:layout_alignLeft="@+id/btn_login"
+            android:layout_alignStart="@+id/btn_login"
+            android:layout_marginBottom="64dp"
+            android:padding="10dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/password_label"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="123dp"
+            android:text="@string/login_label" />
+
+        <Button
+            android:id="@+id/btn_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="56dp"
+            android:text="@string/login_label" />
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>
